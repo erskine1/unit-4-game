@@ -78,6 +78,8 @@ $(".character").on("click", function() {
 
     console.log(`Player:`);
     console.log(player);
+    $("#player-window").text(player.name);
+    
   }  
 
   // If player chose a character, and hasn't chosen NPC, assign character to NPC
@@ -104,8 +106,20 @@ $(".character").on("click", function() {
     }
     console.log(`Opponent:`)
     console.log(opponent);
-  }  
+    $("#opponent-window").text(opponent.name);
+    
+  }
 
+  if (pickPC && pickNPC) {
+    $("#attack").show();
+  }
+
+});
+
+$("#attack").on("click", function() {
+  if (player.hp > 0 && opponent.hp > 0) {
+    
+  }
 });
 
 

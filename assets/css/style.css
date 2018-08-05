@@ -1,1 +1,67 @@
+body, html {
+  color: #fff;
+  background: #170e09;
+  min-height: 100%;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 12px;
+}
 
+*, :after, :before {
+  box-sizing: inherit;
+}
+
+.section {
+  position: relative;
+  padding: 20px;
+  margin-bottom: 10px;
+  min-height: 200px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* .character-section {
+  overflow: auto;
+} */
+
+.tile::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%;
+}
+
+.character {
+  position: relative;
+  clear: none;
+  float: left;
+  width: 25%;
+  min-height: 100%;  
+}
+
+.character-content {
+  margin: 10px;
+}
+
+.character-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-image: url("../images/kenobi.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 10px;
+}
+
+.character-label {
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+  left: 10px;
+  text-align: center;
+  font-size: 22px;
+}
+
+#attack {
+  display: none;
+}

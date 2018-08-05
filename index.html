@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Game</title>
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
@@ -13,22 +14,35 @@
 
     <!-- This div for choosing PC and NPC -->
     <div class="section character-section">
-      <h3 class="title"> Character Selection </h3>
+      <h1 class="title"> Character Selection </h1>
       
       <div class="character" id="kenobi">
-        <h2>Kenobi Placeholder</h2>
+        <div class="tile character-content">
+          <div class="character-bg"></div>
+        </div>
+        <div class="character-label">Ben Kenobi</div>
       </div>
 
       <div class="character" id="fett">
-        <h2>Fett Placeholder</h2>
+        <div class="tile character-content">
+          <div class="character-bg"></div>
+        </div>
+        <div class="character-label">Boba Fett</div>
       </div>
 
       <div class="character" id="vader">
-        <h2>Vader Placeholder</h2>
+
+        <div class="tile character-content">
+          <div class="character-bg"></div>
+        </div>
+        <div class="character-label">Darth Vader</div>
       </div>
       
       <div class="character" id="maul">
-        <h2>Maul Placeholder</h2>
+        <div class="tile character-content">
+          <div class="character-bg"></div>
+        </div>
+        <div class="character-label">Darth Maul</div>
       </div>
 
     </div>
@@ -37,24 +51,26 @@
 
       <!-- Do these windows need classes? -->
       <!-- chosen PC window -->
-      <div class="player">
+      <div id="player-window">
 
       </div>
 
       <!-- actions window -->
-      <div class="actions">
+      <div class="actions-window">
 
       </div>
 
       <!-- chosen NPC window -->
-      <div class="opponent">
+      <div id="opponent-window">
 
       </div>
 
       <!-- combat log of attacks -->
-      <div class="combat-log">
+      <div class="combat-window">
 
       </div>
+
+      <button type="button" id="attack">Attack</button>
 
     </div>
 
