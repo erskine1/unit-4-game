@@ -59,6 +59,8 @@ function playerHP() {
   if (player.hp <= 0) {
     player.hp = 0;
     console.log(`${player.name} has died`)
+    $("#combat-text").append(`<div class="yellow-text">You have been slain by ${opponent.name}!</div>`);
+    $("#restart").show();
   }
   else {
     console.log(`${player.name} is alive`)
@@ -157,19 +159,15 @@ $(".character").on("click", function() {
 
 $("#attack").on("click", function() {
   if (player.hp > 0 && opponent.hp > 0) {
-    
     damage += player.atk; 
     opponent.hp -= damage;
     player.hp -= opponent.counterAtk; 
-    playerHP();
-    opponentHP();
-    // $("#playerAttack").text(`You attack ${opponent.name} for ${damage} points of damage!`);
-    // $("#opponentAttack").text(`${opponent.name} attacks YOU for ${opponent.counterAtk} points of damage!`);
+    
     $("#combat-text").append(`<div class="yellow-text">You attack ${opponent.name} for ${damage} points of damage!</div>`);
     $("#combat-text").append(`<div class="red-text">${opponent.name} attacks YOU for ${opponent.counterAtk} points of damage!</div>`);
     
-    console.log(player.hp);
-    console.log(opponent.hp);
+    playerHP();
+    opponentHP();
   }
 
 });

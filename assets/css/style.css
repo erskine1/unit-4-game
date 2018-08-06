@@ -11,6 +11,8 @@ body, html {
   box-sizing: inherit;
 }
 
+/* Page structure */
+
 .section {
   position: relative;
   padding: 20px;
@@ -20,15 +22,13 @@ body, html {
   margin: 0 auto;
 }
 
-/* .character-section {
-  overflow: auto;
-} */
-
 .tile::before {
   content: "";
   display: block;
   padding-top: 56.25%;
 }
+
+/* character tiles */
 
 .character {
   position: relative;
@@ -48,10 +48,10 @@ body, html {
   right: 0;
   left: 0;
   bottom: 0;
-  background: black;
+  /* background: black; */ 
   background-repeat: no-repeat;
   background-size: cover;
-  /* margin: 10px; */
+  margin: 10px;
   max-width: 100%;
 }
 
@@ -64,47 +64,19 @@ body, html {
   font-size: 22px;
 }
 
-#attack {
-  display: none;
-}
-
 .selected {
   filter: grayscale(100%);
 }
 
-#player-window, .combat-window, #opponent-window  {
+.game-tile  {
   position: relative;
   min-height: 200px;
   width: calc((100%) / 3);
   float: left;
 }
 
-.combat-window {
-  /* position: relative;
-  min-height: 200px; */
-  /* width: 33.33%; */
-  /* width: calc((100%) / 3);
-  float: left; */
-  overflow: auto;
-}
+/* background images for character selection and game section */
 
-.yellow-text {
-  color: yellow;
-}
-
-.red-text {
-  color: red;
-}
-
-/* #opponent-window {
-  position: relative;
-  min-height: 200px;
-  width: calc((100%) / 3);
-  float: left;
-} */
-
-/* Placeholder background images to be fetched for player window */
-/* Also used for character selection */
 .kenobi-bg {
   background-image: url("../images/kenobi.jpeg");
 }
@@ -119,4 +91,28 @@ body, html {
 
 .maul-bg {
   background-image: url("../images/kenobi.jpeg");
+}
+
+/* combat window */
+
+.combat-window {
+  overflow: auto;
+}
+
+.yellow-text {
+  color: yellow;
+}
+
+.red-text {
+  color: red;
+}
+
+/* Buttons */
+
+#attack {
+  display: none;
+}
+
+#restart {
+  display: none;
 }
