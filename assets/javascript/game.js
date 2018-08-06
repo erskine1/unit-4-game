@@ -100,6 +100,7 @@ function charHP() {
     console.log(`${opponent.name} has died`)
     $("#combat-text").append(`<div>You have slain ${opponent.name}!</div>`);
     charCount--;
+    opponent = "";
     pickNPC = false;
     $("#opponent-window").removeClass("character-bg");
     $("#opponent-text").empty();
@@ -160,8 +161,6 @@ $(".character").on("click", function() {
       opponent = fett;
       fett.avail = false;
       pickNPC = true;
-      // Gives Fett window selected attribute, greying it out
-      // Places Fett background in the opponent window
       $("#fett").addClass("selected")
       $("#opponent-window").addClass("character-bg fett-bg")
     }
@@ -179,10 +178,15 @@ $(".character").on("click", function() {
       $("#maul").addClass("selected")
       $("#opponent-window").addClass("character-bg maul-bg")
     }
-    console.log(`Opponent:`)
-    console.log(opponent);
-    $("#opponent-text").text(opponent.name);
-    $("#attack").show();
+    
+
+    if (pickNPC) {
+      $("#opponent-text").text(opponent.name);
+      $("#attack").show();
+      console.log(`Opponent:`)
+      console.log(opponent);
+    }
+    
   }
 
 });
