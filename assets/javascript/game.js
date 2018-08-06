@@ -56,10 +56,7 @@ var damage = 0;
 // Function that checks if a character has died
 // if hp is 0 or negative, sets hp to 0
 function charHP() {
-  if (player.hp <= 0 && opponent.hp <= 0) {
-    
-  }
-  else if (player.hp <= 0) {
+  if (player.hp <= 0) {
     player.hp = 0;
     console.log(`${player.name} has died`)
     $("#combat-text").append(`<div>You have been slain by ${opponent.name}!</div>`);
@@ -69,7 +66,6 @@ function charHP() {
     opponent.hp = 0;
     console.log(`${opponent.name} has died`)
     $("#combat-text").append(`<div>You have slain ${opponent.name}!</div>`);
-    var opponent = "";
     pickNPC = false;
     $("#opponent-window").attr("class", "character-bg")
     $("#opponent-window").empty();
@@ -170,7 +166,7 @@ $(".character").on("click", function() {
 $("#attack").on("click", function() {
   if (player.hp > 0 && opponent.hp > 0) {
     
-    if (damage < opponent.hp && opponent.counterAtk < player.hp) {
+    if (damage < opponent.hp || opponent.counterAtk < player.hp) {
       damage += player.atk; 
       $("#combat-text").append(`<div class="yellow-text">You attack ${opponent.name} for ${damage} points of damage!</div>`);
       $("#combat-text").append(`<div class="red-text">${opponent.name} attacks YOU for ${opponent.counterAtk} points of damage!</div>`);
