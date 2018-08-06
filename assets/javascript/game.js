@@ -44,7 +44,7 @@ var maul = {
 // Default game state. No characters picked, player values unassigned
 var pickPC = false;
 var pickNPC = false;
-var charCounter = 4;
+var charCount = 4;
 var player = "";
 var opponent = "";
 // variable holding the player's current damage output
@@ -59,16 +59,28 @@ var damage = 0;
 function restartGame() {
   pickPC = false;
   pickNPC = false;
-  charCounter = 4;
+  charCount = 4;
   player = "";
   opponent = "";
+  damage = 0;
   kenobi = { name: "Ben Kenobi", hp: 90, atk: 8, counterAtk: 5, alive: true, avail: true };
   fett = { name: "Boba Fett", hp: 110, atk: 12, counterAtk: 20, alive: true, avail: true };
   vader = { name: "Darth Vader", hp: 130, atk: 14, counterAtk: 25, alive: true, avail: true };
   maul = { name: "Darth Maul", hp: 100, atk: 10, counterAtk: 10, alive: true, avail: true };
   $(".game").removeClass("selected dead kenobi-bg fett-bg vader-bg maul-bg")
   $(".select").removeClass("selected");
-  $("#combat-text").empty();
+  // $("#combat-text").empty();
+  $(".game-text").empty();
+}
+
+function win() {
+  if (charCount === 0)  {
+    $("#combat-text").append(`<div>Congratulations!! You have won!</div>`);
+    $("#restart").show();
+  }
+  else {
+    return false;
+  }
 }
 
 function charHP() {
@@ -77,18 +89,28 @@ function charHP() {
     console.log(`${player.name} has died`)
     $("#combat-text").append(`<div>You have been slain by ${opponent.name}!</div>`);
     $("#player-window").addClass("dead");
+    $("#attack").hide();
     $("#restart").show();
   }
   else if (opponent.hp <= 0) {
     opponent.hp = 0;
     console.log(`${opponent.name} has died`)
     $("#combat-text").append(`<div>You have slain ${opponent.name}!</div>`);
+    charCount--;
     pickNPC = false;
     $("#opponent-window").removeClass("character-bg");
-    $("#opponent-window").empty();
+    $("#opponent-text").empty();
+    $("#attack").hide();
   }
+  win();
 }
 
+function scrollChat() {
+  var chat = $("#combat-text");
+  chat.html();
+  chat.scrollTop(chat[0].scrollHeight);
+}
+scrollChat();
 
 // PLAYER + OPPONENT EVENT HANDLER
 $(".character").on("click", function() {
@@ -124,7 +146,7 @@ $(".character").on("click", function() {
       $("#player-window").addClass("character-bg maul-bg");
     }
     pickPC = true;
-
+    charCount--;
     console.log(`Player:`);
     console.log(player);
     $("#player-text").text(player.name);
@@ -166,7 +188,6 @@ $(".character").on("click", function() {
     console.log(`Opponent:`)
     console.log(opponent);
     $("#opponent-text").text(opponent.name);
-    
   }
 
   if (pickPC && pickNPC) {
@@ -204,7 +225,7 @@ $("#attack").on("click", function() {
     console.log(`Player HP is ${player.hp}`)
     console.log(`Opponent HP is ${opponent.hp}`)
   }
-
+  scrollChat()
 });
 
 $("#restart").on("click", function() {

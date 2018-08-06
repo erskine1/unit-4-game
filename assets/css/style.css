@@ -100,7 +100,7 @@ body, html {
 /* combat window */
 
 .combat-window {
-  overflow: auto;
+  overflow: visible;
 }
 
 .yellow-text {
