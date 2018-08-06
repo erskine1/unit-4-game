@@ -55,11 +55,28 @@ var damage = 0;
 
 // Function that checks if a character has died
 // if hp is 0 or negative, sets hp to 0
+
+function restartGame() {
+  pickPC = false;
+  pickNPC = false;
+  charCounter = 4;
+  player = "";
+  opponent = "";
+  kenobi = { name: "Ben Kenobi", hp: 90, atk: 8, counterAtk: 5, alive: true, avail: true };
+  fett = { name: "Boba Fett", hp: 110, atk: 12, counterAtk: 20, alive: true, avail: true };
+  vader = { name: "Darth Vader", hp: 130, atk: 14, counterAtk: 25, alive: true, avail: true };
+  maul = { name: "Darth Maul", hp: 100, atk: 10, counterAtk: 10, alive: true, avail: true };
+  $(".game").removeClass("selected dead kenobi-bg fett-bg vader-bg maul-bg")
+  $(".select").removeClass("selected");
+  $("#combat-text").empty();
+}
+
 function charHP() {
   if (player.hp <= 0) {
     player.hp = 0;
     console.log(`${player.name} has died`)
     $("#combat-text").append(`<div>You have been slain by ${opponent.name}!</div>`);
+    $("#player-window").addClass("dead");
     $("#restart").show();
   }
   else if (opponent.hp <= 0) {
@@ -67,21 +84,10 @@ function charHP() {
     console.log(`${opponent.name} has died`)
     $("#combat-text").append(`<div>You have slain ${opponent.name}!</div>`);
     pickNPC = false;
-    $("#opponent-window").attr("class", "character-bg")
+    $("#opponent-window").removeClass("character-bg");
     $("#opponent-window").empty();
   }
 }
-
-// function opponentHP() {
-//   if (opponent.hp <= 0) {
-//     opponent.hp = 0;
-//     console.log(`${opponent.name} has died`)
-//     $("#combat-text").append(`<div>You have slain ${opponent.name}!</div>`);
-//   }
-//   else {
-//     console.log(`${opponent.name} is alive`)
-//   }
-// }
 
 
 // PLAYER + OPPONENT EVENT HANDLER
@@ -95,30 +101,33 @@ $(".character").on("click", function() {
       player = kenobi;
       kenobi.avail = false;
       // Gives Kenobi window selected attribute, greying it out
-      $("#kenobi").attr("class", "character selected")
       // Places Kenobi background in player window
-      $("#player-window").attr("class", "character-bg kenobi-bg")
+      $("#kenobi").addClass("selected");
+      $("#player-window").addClass("character-bg kenobi-bg");
     }
     else if (character === "fett") {
       player = fett;
       fett.avail = false;
-      $("#fett").attr("class", "character selected")
+      $("#fett").addClass("selected");
+      $("#player-window").addClass("character-bg fett-bg");
     }
     else if (character === "vader") {
       player = vader;
       vader.avail = false;
-      $("#vader").attr("class", "character selected")
+      $("#vader").addClass("selected");
+      $("#player-window").addClass("character-bg vader-bg");
     }
     else if (character === "maul") {
       player = maul;
       maul.avail = false;
-      $("#maul").attr("class", "character selected")
+      $("#maul").addClass("selected");
+      $("#player-window").addClass("character-bg maul-bg");
     }
     pickPC = true;
 
     console.log(`Player:`);
     console.log(player);
-    $("#player-window").text(player.name);
+    $("#player-text").text(player.name);
     
   }  
 
@@ -128,32 +137,35 @@ $(".character").on("click", function() {
       opponent = kenobi;
       kenobi.avail = false;
       pickNPC = true;
-      $("#kenobi").attr("class", "character selected")
+      $("#kenobi").addClass("selected")
+      $("#opponent-window").addClass("character-bg kenobi-bg")
     }
     else if (character === "fett" && fett.avail) {
       opponent = fett;
       fett.avail = false;
       pickNPC = true;
       // Gives Fett window selected attribute, greying it out
-      $("#fett").attr("class", "character selected")
       // Places Fett background in the opponent window
-      $("#opponent-window").attr("class", "character-bg fett-bg")
+      $("#fett").addClass("selected")
+      $("#opponent-window").addClass("character-bg fett-bg")
     }
     else if (character === "vader" && vader.avail) {
       opponent = vader;
       vader.avail = false;
       pickNPC = true;
-      $("#vader").attr("class", "character selected")
+      $("#vader").addClass("selected")
+      $("#opponent-window").addClass("character-bg vader-bg")
     }
     else if (character === "maul" && maul.avail) {
       opponent = maul;
       maul.avail = false;
       pickNPC = true;
-      $("#maul").attr("class", "character selected")
+      $("#maul").addClass("selected")
+      $("#opponent-window").addClass("character-bg maul-bg")
     }
     console.log(`Opponent:`)
     console.log(opponent);
-    $("#opponent-window").text(opponent.name);
+    $("#opponent-text").text(opponent.name);
     
   }
 
@@ -193,6 +205,10 @@ $("#attack").on("click", function() {
     console.log(`Opponent HP is ${opponent.hp}`)
   }
 
+});
+
+$("#restart").on("click", function() {
+  restartGame();  
 });
 
 
