@@ -53,14 +53,13 @@ var damage = 0;
 // Will either want a reset function here
 // or build it into reset button at the end
 
-// Function that checks if player has died
+// Function that checks if a character has died
 // if hp is 0 or negative, sets hp to 0
-function playerHP() {
-  // if (player.hp <= 0 && opponent.hp <= 0) {
-  //   var magicDie = Math.floor(Math.random() * 20) + 1;
-
-  // }
-  if (player.hp <= 0) {
+function charHP() {
+  if (player.hp <= 0 && opponent.hp <= 0) {
+    
+  }
+  else if (player.hp <= 0) {
     player.hp = 0;
     console.log(`${player.name} has died`)
     $("#combat-text").append(`<div>You have been slain by ${opponent.name}!</div>`);
@@ -70,6 +69,10 @@ function playerHP() {
     opponent.hp = 0;
     console.log(`${opponent.name} has died`)
     $("#combat-text").append(`<div>You have slain ${opponent.name}!</div>`);
+    var opponent = "";
+    pickNPC = false;
+    $("#opponent-window").attr("class", "character-bg")
+    $("#opponent-window").empty();
   }
 }
 
@@ -166,11 +169,9 @@ $(".character").on("click", function() {
 
 $("#attack").on("click", function() {
   if (player.hp > 0 && opponent.hp > 0) {
-    damage += player.atk; 
-    opponent.hp -= damage;
-    player.hp -= opponent.counterAtk; 
     
     if (damage < opponent.hp && opponent.counterAtk < player.hp) {
+      damage += player.atk; 
       $("#combat-text").append(`<div class="yellow-text">You attack ${opponent.name} for ${damage} points of damage!</div>`);
       $("#combat-text").append(`<div class="red-text">${opponent.name} attacks YOU for ${opponent.counterAtk} points of damage!</div>`);
     }
@@ -178,17 +179,22 @@ $("#attack").on("click", function() {
       var magicDie = Math.floor(Math.random() * 20) + 1;
       if (magicDie > 10) {
         opponent.counterAtk = 0;
+        damage += player.atk; 
         $("#combat-text").append(`<div class="yellow-text">You attack ${opponent.name} for ${damage} points of damage!</div>`);
         $("#combat-text").append(`<div class="red-text">${opponent.name} tries to attack YOU, but YOU dodge!</div>`);
       }  
       else {
-        damage = 0;
+        damage = 0; 
         $("#combat-text").append(`<div class="yellow-text">You try to attack ${opponent.name}, but ${opponent.name} dodges!</div>`);
         $("#combat-text").append(`<div class="red-text">${opponent.name} attacks YOU for ${opponent.counterAtk} points of damage!</div>`);
+        
       }
     }
-    playerHP();
-    // opponentHP();
+    opponent.hp -= damage;
+    player.hp -= opponent.counterAtk;
+    charHP();
+    console.log(`Player HP is ${player.hp}`)
+    console.log(`Opponent HP is ${opponent.hp}`)
   }
 
 });
