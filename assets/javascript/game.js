@@ -71,6 +71,7 @@ function restartGame() {
   $(".select").removeClass("selected");
   // $("#combat-text").empty();
   $(".game-text").empty();
+  $("#restart").hide();
 }
 
 function win() {
@@ -104,13 +105,6 @@ function charHP() {
   }
   win();
 }
-
-function scrollChat() {
-  var chat = $("#combat-text");
-  chat.html();
-  chat.scrollTop(chat[0].scrollHeight);
-}
-scrollChat();
 
 // PLAYER + OPPONENT EVENT HANDLER
 $(".character").on("click", function() {
@@ -188,11 +182,12 @@ $(".character").on("click", function() {
     console.log(`Opponent:`)
     console.log(opponent);
     $("#opponent-text").text(opponent.name);
-  }
-
-  if (pickPC && pickNPC) {
     $("#attack").show();
   }
+
+  // if (pickPC && pickNPC) {
+    
+  // }
 
 });
 
@@ -225,7 +220,7 @@ $("#attack").on("click", function() {
     console.log(`Player HP is ${player.hp}`)
     console.log(`Opponent HP is ${opponent.hp}`)
   }
-  scrollChat()
+
 });
 
 $("#restart").on("click", function() {

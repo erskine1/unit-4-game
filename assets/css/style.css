@@ -22,6 +22,16 @@ body, html {
   margin: 0 auto;
 }
 
+.divider {
+  /* position: relative; */
+  /* padding: 20px; */
+  padding-top: 10px;
+  /* min-height: 200px; */
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .tile::before {
   content: "";
   display: block;
@@ -112,6 +122,11 @@ body, html {
 }
 
 /* Buttons */
+
+/* .button {
+  display: block;
+  margin: 0 auto;
+} */
 
 #attack {
   display: none;
