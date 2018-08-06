@@ -74,10 +74,12 @@ function restartGame() {
   $("#restart").hide();
 }
 
+// players can still choose an opponent after winning the game for some reason
 function win() {
   if (charCount === 0)  {
     $("#combat-text").append(`<div>Congratulations!! You have won!</div>`);
     $("#restart").show();
+    pickNPC = true;
   }
   else {
     return false;
@@ -111,13 +113,11 @@ $(".character").on("click", function() {
   character = this.id; // Determine which character was clicked
   // console.log("You clicked on " + character);
 
-  // If player hasn't chosen a character yet, assign the character clicked
+  // If player hasn't chosen a character yet, player becomes selected character
   if (!pickPC) {
     if (character === "kenobi") {
       player = kenobi;
       kenobi.avail = false;
-      // Gives Kenobi window selected attribute, greying it out
-      // Places Kenobi background in player window
       $("#kenobi").addClass("selected");
       $("#player-window").addClass("character-bg kenobi-bg");
     }
@@ -184,10 +184,6 @@ $(".character").on("click", function() {
     $("#opponent-text").text(opponent.name);
     $("#attack").show();
   }
-
-  // if (pickPC && pickNPC) {
-    
-  // }
 
 });
 
