@@ -56,26 +56,33 @@ var damage = 0;
 // Function that checks if player has died
 // if hp is 0 or negative, sets hp to 0
 function playerHP() {
+  // if (player.hp <= 0 && opponent.hp <= 0) {
+  //   var magicDie = Math.floor(Math.random() * 20) + 1;
+
+  // }
   if (player.hp <= 0) {
     player.hp = 0;
     console.log(`${player.name} has died`)
-    $("#combat-text").append(`<div class="yellow-text">You have been slain by ${opponent.name}!</div>`);
+    $("#combat-text").append(`<div>You have been slain by ${opponent.name}!</div>`);
     $("#restart").show();
   }
-  else {
-    console.log(`${player.name} is alive`)
+  else if (opponent.hp <= 0) {
+    opponent.hp = 0;
+    console.log(`${opponent.name} has died`)
+    $("#combat-text").append(`<div>You have slain ${opponent.name}!</div>`);
   }
 }
 
-function opponentHP() {
-  if (opponent.hp <= 0) {
-    opponent.hp = 0;
-    console.log(`${opponent.name} has died`)
-  }
-  else {
-    console.log(`${opponent.name} is alive`)
-  }
-}
+// function opponentHP() {
+//   if (opponent.hp <= 0) {
+//     opponent.hp = 0;
+//     console.log(`${opponent.name} has died`)
+//     $("#combat-text").append(`<div>You have slain ${opponent.name}!</div>`);
+//   }
+//   else {
+//     console.log(`${opponent.name} is alive`)
+//   }
+// }
 
 
 // PLAYER + OPPONENT EVENT HANDLER
@@ -163,11 +170,25 @@ $("#attack").on("click", function() {
     opponent.hp -= damage;
     player.hp -= opponent.counterAtk; 
     
-    $("#combat-text").append(`<div class="yellow-text">You attack ${opponent.name} for ${damage} points of damage!</div>`);
-    $("#combat-text").append(`<div class="red-text">${opponent.name} attacks YOU for ${opponent.counterAtk} points of damage!</div>`);
-    
+    if (damage < opponent.hp && opponent.counterAtk < player.hp) {
+      $("#combat-text").append(`<div class="yellow-text">You attack ${opponent.name} for ${damage} points of damage!</div>`);
+      $("#combat-text").append(`<div class="red-text">${opponent.name} attacks YOU for ${opponent.counterAtk} points of damage!</div>`);
+    }
+    else if (damage >= opponent.hp && opponent.counterAtk >= player.hp) {
+      var magicDie = Math.floor(Math.random() * 20) + 1;
+      if (magicDie > 10) {
+        opponent.counterAtk = 0;
+        $("#combat-text").append(`<div class="yellow-text">You attack ${opponent.name} for ${damage} points of damage!</div>`);
+        $("#combat-text").append(`<div class="red-text">${opponent.name} tries to attack YOU, but YOU dodge!</div>`);
+      }  
+      else {
+        damage = 0;
+        $("#combat-text").append(`<div class="yellow-text">You try to attack ${opponent.name}, but ${opponent.name} dodges!</div>`);
+        $("#combat-text").append(`<div class="red-text">${opponent.name} attacks YOU for ${opponent.counterAtk} points of damage!</div>`);
+      }
+    }
     playerHP();
-    opponentHP();
+    // opponentHP();
   }
 
 });
