@@ -18,14 +18,14 @@
       
       <div class="character" id="kenobi">
         <div class="tile character-content">
-          <div class="character-bg"></div>
+          <div class="character-bg kenobi-bg"></div>
         </div>
         <div class="character-label">Ben Kenobi</div>
       </div>
 
       <div class="character" id="fett">
         <div class="tile character-content">
-          <div class="character-bg"></div>
+          <div class="character-bg fett-bg"></div>
         </div>
         <div class="character-label">Boba Fett</div>
       </div>
@@ -33,14 +33,14 @@
       <div class="character" id="vader">
 
         <div class="tile character-content">
-          <div class="character-bg"></div>
+          <div class="character-bg vader-bg"></div>
         </div>
         <div class="character-label">Darth Vader</div>
       </div>
       
       <div class="character" id="maul">
         <div class="tile character-content">
-          <div class="character-bg"></div>
+          <div class="character-bg maul-bg"></div>
         </div>
         <div class="character-label">Darth Maul</div>
       </div>
@@ -51,28 +51,34 @@
 
       <!-- Do these windows need classes? -->
       <!-- chosen PC window -->
-      <div id="player-window">
+      <div class="game-tile">
+        <div id="player-window">
 
-      </div>
-
-      <!-- actions window -->
-      <div class="actions-window">
-
-      </div>
-
-      <!-- chosen NPC window -->
-      <div id="opponent-window">
-
+        </div>
       </div>
 
       <!-- combat log of attacks -->
-      <div class="combat-window">
-
+      <div class="game-tile">
+        <div class="combat-window character-bg">
+          <div id="combat-text"></div>
+        </div>
       </div>
 
-      <button type="button" id="attack">Attack</button>
+      <!-- chosen NPC window -->
+      <div class="game-tile">
+        <div id="opponent-window">
+
+        </div>
+      </div>
+
+      
+
+      
 
     </div>
+
+    <!-- Attack button -->
+    <button type="button" id="attack">Attack</button>
 
     
     <script src="assets/javascript/game.js"></script>

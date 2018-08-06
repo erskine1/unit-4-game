@@ -4,6 +4,7 @@ body, html {
   min-height: 100%;
   font-family: 'Open Sans', Arial, sans-serif;
   font-size: 12px;
+  box-sizing: border-box;
 }
 
 *, :after, :before {
@@ -47,10 +48,11 @@ body, html {
   right: 0;
   left: 0;
   bottom: 0;
-  background-image: url("../images/kenobi.jpeg");
+  background: black;
   background-repeat: no-repeat;
   background-size: cover;
-  margin: 10px;
+  /* margin: 10px; */
+  max-width: 100%;
 }
 
 .character-label {
@@ -64,4 +66,57 @@ body, html {
 
 #attack {
   display: none;
+}
+
+.selected {
+  filter: grayscale(100%);
+}
+
+#player-window, .combat-window, #opponent-window  {
+  position: relative;
+  min-height: 200px;
+  width: calc((100%) / 3);
+  float: left;
+}
+
+.combat-window {
+  /* position: relative;
+  min-height: 200px; */
+  /* width: 33.33%; */
+  /* width: calc((100%) / 3);
+  float: left; */
+  overflow: auto;
+}
+
+.yellow-text {
+  color: yellow;
+}
+
+.red-text {
+  color: red;
+}
+
+/* #opponent-window {
+  position: relative;
+  min-height: 200px;
+  width: calc((100%) / 3);
+  float: left;
+} */
+
+/* Placeholder background images to be fetched for player window */
+/* Also used for character selection */
+.kenobi-bg {
+  background-image: url("../images/kenobi.jpeg");
+}
+
+.fett-bg {
+  background-image: url("../images/kenobi.jpeg");
+}
+
+.vader-bg {
+  background-image: url("../images/kenobi.jpeg");
+}
+
+.maul-bg {
+  background-image: url("../images/kenobi.jpeg");
 }
