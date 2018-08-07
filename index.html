@@ -12,49 +12,49 @@
 
   <body>
 
-    <!-- This div for choosing PC and NPC -->
+    <div class="divider"><h1 class="title">character selection</h1></div>
+
     <div class="section character-section">
-      <h1 class="title"> Character Selection </h1>
       
-      <div class="select character" id="kenobi">
+      <div class="select character label-select" id="exar">
         <div class="tile character-content">
-          <div class="character-bg kenobi-bg"></div>
+          <div class="character-bg exar-bg border-select"></div>
         </div>
-        <div class="character-label">Ben Kenobi</div>
+        <div class="character-label">exar kun</div>
       </div>
 
-      <div class="select character" id="fett">
+      <div class="select character label-select" id="nomi">
         <div class="tile character-content">
-          <div class="character-bg fett-bg"></div>
+          <div class="character-bg nomi-bg border-select"></div>
         </div>
-        <div class="character-label">Boba Fett</div>
+        <div class="character-label">nomi sunrider</div>
       </div>
 
-      <div class="select character" id="vader">
+      <div class="select character label-select" id="vader">
         <div class="tile character-content">
-          <div class="character-bg vader-bg"></div>
+          <div class="character-bg vader-bg border-select"></div>
         </div>
-        <div class="character-label">Darth Vader</div>
+        <div class="character-label">darth vader</div>
       </div>
       
-      <div class="select character" id="maul">
+      <div class="select character label-select" id="katarn">
         <div class="tile character-content">
-          <div class="character-bg maul-bg"></div>
+          <div class="character-bg katarn-bg border-select"></div>
         </div>
-        <div class="character-label">Darth Maul</div>
+        <div class="character-label">kyle katarn</div>
       </div>
 
     </div>
 
     <div class="divider">
       <!-- Attack & reset buttons -->
-      <button type="button" id="attack">Attack</button>
-      <button type="button" id="restart">Restart</button>
+      <div id="message">select your character.</div>
+      <button type="button" id="attack">attack</button>
+      <button type="button" id="restart">restart</button>
     </div>
 
     <div class="section game-section">
 
-      <!-- Do these windows need classes? -->
       <!-- chosen PC window -->
       <div class="game-tile">
         <div class="game" id="player-window">

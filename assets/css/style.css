@@ -23,19 +23,26 @@ body, html {
 }
 
 .divider {
-  /* position: relative; */
-  /* padding: 20px; */
-  padding-top: 10px;
-  /* min-height: 200px; */
+  min-height: 50px;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+  clear: both;
+  padding-top: 10px;
 }
 
 .tile::before {
   content: "";
   display: block;
   padding-top: 56.25%;
+}
+
+h1 {
+  font-variant: small-caps;
+  font-size: 28px;
+  padding: 2px 25px;
+  /* margin: 0 auto; */
+  text-align: center;
 }
 
 /* character tiles */
@@ -45,7 +52,13 @@ body, html {
   clear: none;
   float: left;
   width: 25%;
-  min-height: 100%;  
+  min-height: 100%; 
+  color: yellow;
+  transition: all .2s ease-in-out;
+}
+
+.character:hover {
+  color: #fff;
 }
 
 .character-content {
@@ -67,11 +80,13 @@ body, html {
 
 .character-label {
   position: absolute;
-  bottom: 15px;
+  bottom: 18px;
   right: 10px;
   left: 10px;
   text-align: center;
-  font-size: 22px;
+  font-size: 28px;
+  font-variant: small-caps;
+  text-shadow: 0 0 1px transparent, 0 1px 2px rgba(0,0,0,.8);
 }
 
 .selected {
@@ -89,22 +104,30 @@ body, html {
   float: left;
 }
 
-/* background images for character selection and game section */
-
-.kenobi-bg {
-  background-image: url("../images/kenobi.jpeg");
+#player-text, #opponent-text {
+  position: absolute;
+  bottom: -80px;
+  left: 10px;
+  font-size: 22px;
+  text-shadow: 0 0 1px transparent, 0 1px 2px rgba(0,0,0,.8);
 }
 
-.fett-bg {
-  background-image: url("../images/kenobi.jpeg");
+/* background images for character selection and game section */
+
+.exar-bg {
+  background-image: url("../images/exar-kun.jpg");
+}
+
+.nomi-bg {
+  background-image: url("../images/nomi1.jpg");
 }
 
 .vader-bg {
-  background-image: url("../images/kenobi.jpeg");
+  background-image: url("../images/vader.jpg");
 }
 
-.maul-bg {
-  background-image: url("../images/kenobi.jpeg");
+.katarn-bg {
+  background-image: url("../images/katarn1.jpg");
 }
 
 /* combat window */
@@ -123,10 +146,23 @@ body, html {
 
 /* Buttons */
 
-/* .button {
-  display: block;
-  margin: 0 auto;
-} */
+button {
+  background: transparent;
+  color: #fff;
+  padding: 2px 25px;
+  border: 2px solid #fff;
+  font-variant: small-caps;
+  font-size: 24px;
+  /* margin-left: 20px; */
+}
+
+button:hover {
+  border: 2px solid transparent;
+  background: #fff;
+  color: #000;
+  transition: all .2s ease-in-out;
+}
+
 
 #attack {
   display: none;
@@ -134,4 +170,10 @@ body, html {
 
 #restart {
   display: none;
+}
+
+#message {
+  font-variant: small-caps;
+  font-size: 24px;
+  padding: 2px 25px;
 }

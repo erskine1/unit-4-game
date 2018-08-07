@@ -1,60 +1,29 @@
-
-// $(document).ready(function() { 
+$(document).ready(function() { 
 
 // CHARACTER OBJECTS
 
-var kenobi = {
-  name: "Ben Kenobi",
-  hp: 90,
-  atk: 8,
-  counterAtk: 5,
-  alive: true,
-  avail: true
-};
+var exar = { name: "Exar Kun", hp: 130, atk: 6, counterAtk: 14, alive: true, avail: true };
+var nomi = { name: "Nomi Sunrider", hp: 110, atk: 8, counterAtk: 12, alive: true, avail: true };
+var vader = { name: "Darth Vader", hp: 120, atk: 7, counterAtk: 11, alive: true, avail: true };
+var katarn = { name: "Kyle Katarn", hp: 100, atk: 9, counterAtk: 10, alive: true, avail: true };
 
-var fett = {
-  name: "Boba Fett",
-  hp: 110,
-  atk: 12,
-  counterAtk: 20,
-  alive: true,
-  avail: true
-};
-
-var vader = {
-  name: "Darth Vader",
-  hp: 130,
-  atk: 14,
-  counterAtk: 25,
-  alive: true,
-  avail: true
-};
-
-var maul = {
-  name: "Darth Maul",
-  hp: 100,
-  atk: 10,
-  counterAtk: 10,
-  alive: true,
-  avail: true
-};
 
 // GAME STATE VARIABLES
-
-// Default game state. No characters picked, player values unassigned
 var pickPC = false;
 var pickNPC = false;
 var charCount = 4;
 var player = "";
 var opponent = "";
-// variable holding the player's current damage output
 var damage = 0;
 
-// Will either want a reset function here
-// or build it into reset button at the end
 
-// Function that checks if a character has died
-// if hp is 0 or negative, sets hp to 0
+// SOUNDS
+var death = new Audio(src="assets/sounds/gl-4.mp3");
+var victory = new Audio(src="assets/sounds/victory.wav");
+victory.volume = 0.4;
+
+
+// FUNCTIONS
 
 function restartGame() {
   pickPC = false;
@@ -63,22 +32,25 @@ function restartGame() {
   player = "";
   opponent = "";
   damage = 0;
-  kenobi = { name: "Ben Kenobi", hp: 90, atk: 8, counterAtk: 5, alive: true, avail: true };
-  fett = { name: "Boba Fett", hp: 110, atk: 12, counterAtk: 20, alive: true, avail: true };
-  vader = { name: "Darth Vader", hp: 130, atk: 14, counterAtk: 25, alive: true, avail: true };
-  maul = { name: "Darth Maul", hp: 100, atk: 10, counterAtk: 10, alive: true, avail: true };
-  $(".game").removeClass("selected dead kenobi-bg fett-bg vader-bg maul-bg")
+  exar = { name: "Exar Kun", hp: 130, atk: 6, counterAtk: 16, alive: true, avail: true };
+  nomi = { name: "Nomi Sunrider", hp: 110, atk: 8, counterAtk: 12, alive: true, avail: true };
+  vader = { name: "Darth Vader", hp: 120, atk: 7, counterAtk: 14, alive: true, avail: true };
+  katarn = { name: "Kyle Katarn", hp: 100, atk: 9, counterAtk: 10, alive: true, avail: true };
+  $(".game").removeClass("selected dead exar-bg nomi-bg vader-bg katarn-bg")
   $(".select").removeClass("selected");
-  // $("#combat-text").empty();
   $(".game-text").empty();
-  $("#restart").hide();
+  $("#restart").hide().text("restart");
+  $("#message").text("select your character.")
+  death.load();
+  victory.load();
 }
 
-// players can still choose an opponent after winning the game for some reason
 function win() {
   if (charCount === 0)  {
+    $("#message").empty();
     $("#combat-text").append(`<div>Congratulations!! You have won!</div>`);
-    $("#restart").show();
+    $("#restart").show().text("play again");
+    victory.play();
     pickNPC = true;
   }
   else {
@@ -89,7 +61,8 @@ function win() {
 function charHP() {
   if (player.hp <= 0) {
     player.hp = 0;
-    console.log(`${player.name} has died`)
+    death.play();
+
     $("#combat-text").append(`<div>You have been slain by ${opponent.name}!</div>`);
     $("#player-window").addClass("dead");
     $("#attack").hide();
@@ -97,36 +70,42 @@ function charHP() {
   }
   else if (opponent.hp <= 0) {
     opponent.hp = 0;
-    console.log(`${opponent.name} has died`)
+
     $("#combat-text").append(`<div>You have slain ${opponent.name}!</div>`);
     charCount--;
-    opponent = "";
     pickNPC = false;
-    $("#opponent-window").removeClass("character-bg");
-    $("#opponent-text").empty();
+    $("#opponent-window").addClass("dead");
     $("#attack").hide();
+    $("#message").text("select a new opponent.")
   }
   win();
 }
 
-// PLAYER + OPPONENT EVENT HANDLER
-$(".character").on("click", function() {
-  character = this.id; // Determine which character was clicked
-  // console.log("You clicked on " + character);
+function newValues() {
+  $("#pcHP").text(`HP: ${player.hp}`);
+  $("#newATK").text(`ATK: ${damage + player.atk}`);
+  $("#npcHP").text(`HP: ${opponent.hp}`);
+}
 
-  // If player hasn't chosen a character yet, player becomes selected character
+
+// PLAYER + NPC SELECTION EVENT HANDLER
+
+$(".character").on("click", function() {
+  character = this.id;
+
+  // PLAYER SELECTION
   if (!pickPC) {
-    if (character === "kenobi") {
-      player = kenobi;
-      kenobi.avail = false;
-      $("#kenobi").addClass("selected");
-      $("#player-window").addClass("character-bg kenobi-bg");
+    if (character === "exar") {
+      player = exar;
+      exar.avail = false;
+      $("#exar").addClass("selected");
+      $("#player-window").addClass("character-bg exar-bg");
     }
-    else if (character === "fett") {
-      player = fett;
-      fett.avail = false;
-      $("#fett").addClass("selected");
-      $("#player-window").addClass("character-bg fett-bg");
+    else if (character === "nomi") {
+      player = nomi;
+      nomi.avail = false;
+      $("#nomi").addClass("selected");
+      $("#player-window").addClass("character-bg nomi-bg");
     }
     else if (character === "vader") {
       player = vader;
@@ -134,35 +113,41 @@ $(".character").on("click", function() {
       $("#vader").addClass("selected");
       $("#player-window").addClass("character-bg vader-bg");
     }
-    else if (character === "maul") {
-      player = maul;
-      maul.avail = false;
-      $("#maul").addClass("selected");
-      $("#player-window").addClass("character-bg maul-bg");
+    else if (character === "katarn") {
+      player = katarn;
+      katarn.avail = false;
+      $("#katarn").addClass("selected");
+      $("#player-window").addClass("character-bg katarn-bg");
     }
+
     pickPC = true;
     charCount--;
-    console.log(`Player:`);
-    console.log(player);
-    $("#player-text").text(player.name);
-    
+    $("#player-text").append(`<div>Player: ${player.name}</div>`);
+    $("#player-text").append(`<div id="pcHP">HP: ${player.hp}</div>`);
+    $("#player-text").append(`<div id="newATK">ATK: ${player.atk}</div>`);
+    $("#message").text("select an opponent.")
   }  
 
-  // If player chose a character, and hasn't chosen NPC, assign character to NPC
+
+  // NPC SELECTION
   else if (pickPC && !pickNPC ) {
-    if (character === "kenobi" && kenobi.avail) {
-      opponent = kenobi;
-      kenobi.avail = false;
+
+    $("#opponent-window").removeClass("character-bg dead exar-bg nomi-bg vader-bg katarn-bg");
+    $("#opponent-text").empty();
+    
+    if (character === "exar" && exar.avail) {
+      opponent = exar;
+      exar.avail = false;
       pickNPC = true;
-      $("#kenobi").addClass("selected")
-      $("#opponent-window").addClass("character-bg kenobi-bg")
+      $("#exar").addClass("selected")
+      $("#opponent-window").addClass("character-bg exar-bg")
     }
-    else if (character === "fett" && fett.avail) {
-      opponent = fett;
-      fett.avail = false;
+    else if (character === "nomi" && nomi.avail) {
+      opponent = nomi;
+      nomi.avail = false;
       pickNPC = true;
-      $("#fett").addClass("selected")
-      $("#opponent-window").addClass("character-bg fett-bg")
+      $("#nomi").addClass("selected")
+      $("#opponent-window").addClass("character-bg nomi-bg")
     }
     else if (character === "vader" && vader.avail) {
       opponent = vader;
@@ -171,39 +156,40 @@ $(".character").on("click", function() {
       $("#vader").addClass("selected")
       $("#opponent-window").addClass("character-bg vader-bg")
     }
-    else if (character === "maul" && maul.avail) {
-      opponent = maul;
-      maul.avail = false;
+    else if (character === "katarn" && katarn.avail) {
+      opponent = katarn;
+      katarn.avail = false;
       pickNPC = true;
-      $("#maul").addClass("selected")
-      $("#opponent-window").addClass("character-bg maul-bg")
+      $("#katarn").addClass("selected")
+      $("#opponent-window").addClass("character-bg katarn-bg")
     }
     
 
     if (pickNPC) {
-      $("#opponent-text").text(opponent.name);
+      $("#opponent-text").append(`<div>Opponent: ${opponent.name}</div>`);
+      $("#opponent-text").append(`<div id="npcHP">HP: ${opponent.hp}</div>`)
+      $("#opponent-text").append(`<div>ATK: ${opponent.counterAtk}</div>`)
+      $("#message").empty();
       $("#attack").show();
-      console.log(`Opponent:`)
-      console.log(opponent);
     }
-    
   }
 
 });
 
 $("#attack").on("click", function() {
   if (player.hp > 0 && opponent.hp > 0) {
-    
-    if (damage < opponent.hp || opponent.counterAtk < player.hp) {
+    var totalDamage = damage + player.atk;
+
+    if (totalDamage < opponent.hp || opponent.counterAtk < player.hp) {
       damage += player.atk; 
       $("#combat-text").append(`<div class="yellow-text">You attack ${opponent.name} for ${damage} points of damage!</div>`);
       $("#combat-text").append(`<div class="red-text">${opponent.name} attacks YOU for ${opponent.counterAtk} points of damage!</div>`);
     }
-    else if (damage >= opponent.hp && opponent.counterAtk >= player.hp) {
+    else if (totalDamage >= opponent.hp && opponent.counterAtk >= player.hp) {
       var magicDie = Math.floor(Math.random() * 20) + 1;
       if (magicDie > 10) {
         opponent.counterAtk = 0;
-        damage += player.atk; 
+        damage += player.atk;
         $("#combat-text").append(`<div class="yellow-text">You attack ${opponent.name} for ${damage} points of damage!</div>`);
         $("#combat-text").append(`<div class="red-text">${opponent.name} tries to attack YOU, but YOU dodge!</div>`);
       }  
@@ -211,16 +197,16 @@ $("#attack").on("click", function() {
         damage = 0; 
         $("#combat-text").append(`<div class="yellow-text">You try to attack ${opponent.name}, but ${opponent.name} dodges!</div>`);
         $("#combat-text").append(`<div class="red-text">${opponent.name} attacks YOU for ${opponent.counterAtk} points of damage!</div>`);
-        
       }
     }
+    
     opponent.hp -= damage;
     player.hp -= opponent.counterAtk;
     charHP();
-    console.log(`Player HP is ${player.hp}`)
-    console.log(`Opponent HP is ${opponent.hp}`)
+    newValues();
   }
-
+  
+  
 });
 
 $("#restart").on("click", function() {
@@ -228,4 +214,4 @@ $("#restart").on("click", function() {
 });
 
 
-// });
+});
